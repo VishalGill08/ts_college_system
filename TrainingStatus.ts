@@ -1,0 +1,4 @@
+enum TrainingStatus {
+  PENDING,
+  COMPLETED,
+}
