@@ -1,0 +1,107 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "definitions": {
+    "Customer": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "email": { "type": "string" },
+        "phone": { "type": "string" },
+        "medicalStatus": { "$ref": "#/definitions/MedicalStatus" },
+        "bookings": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/Booking" }
+        },
+        "trainingStatus": { "$ref": "#/definitions/TrainingStatus" },
+        "preferences": { "$ref": "#/definitions/Preferences" },
+        "healthData": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/HealthData" }
+        },
+        "postFlightPackage": { "$ref": "#/definitions/PostFlightPackage" }
+      },
+      "required": ["id", "name", "email", "phone", "medicalStatus", "trainingStatus", "preferences"]
+    },
+    "Booking": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "customer": { "$ref": "#/definitions/Customer" },
+        "flight": { "$ref": "#/definitions/Flight" },
+        "date": { "type": "string", "format": "date-time" },
+        "status": { "$ref": "#/definitions/BookingStatus" },
+        "payment": { "$ref": "#/definitions/Payment" },
+        "preferences": { "$ref": "#/definitions/Preferences" }
+      },
+      "required": ["id", "customer", "flight", "date", "status", "payment", "preferences"]
+    },
+    "Flight": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "type": { "$ref": "#/definitions/FlightType" },
+        "date": { "type": "string", "format": "date-time" },
+        "crew": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/Crew" }
+        },
+        "spacecraft": { "$ref": "#/definitions/Spacecraft" },
+        "capacity": { "type": "integer" },
+        "duration": { "type": "integer" }
+      },
+      "required": ["id", "type", "date", "spacecraft", "capacity", "duration"]
+    },
+    "MedicalRecord": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "customer": { "$ref": "#/definitions/Customer" },
+        "results": { "type": "string" },
+        "date": { "type": "string", "format": "date-time" },
+        "status": { "$ref": "#/definitions/MedicalStatus" }
+      },
+      "required": ["id", "customer", "results", "date", "status"]
+    },
+    "HealthData": {
+      "type": "object",
+      "properties": {
+        "heartRate": { "type": "integer" },
+        "bloodPressure": { "type": "string" },
+        "oxygenLevel": { "type": "integer" },
+        "timestamp": { "type": "string", "format": "date-time" }
+      },
+      "required": ["heartRate", "bloodPressure", "oxygenLevel", "timestamp"]
+    },
+    "PostFlightPackage": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "photos": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "videos": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "merchandiseOptions": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      },
+      "required": ["id", "photos", "videos", "merchandiseOptions"]
+    },
+    "Payment": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "amount": { "type": "number" },
+        "date": { "type": "string", "format": "date-time" },
+        "status": { "$ref": "#/definitions/PaymentStatus" }
+      },
+      "required": ["id", "amount", "date", "status"]
+    }
+  },
+  "type": "object"
+}
